@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+
+<link rel="icon" type="image/png" href="hodinovi_kluci1.png">
+<title>Hodinoví kluci Ostrava | Hodinový manžel, sekání trávy a opravy</title>
+<meta content="Spolehliví studenti pro drobné opravy, sekání zahrad a montáž nábytku v Ostravě a okolí. Rychlá domluva, férové ceny a poctivá práce." name="description"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#FACC15', 
+              black: '#0A0A0A',  
+              gray: '#F4F4F5',
+              accent: '#EAB308',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+</script>
+
+<style>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Výrazná žlutá obrysová čísla */
+  .step-number {
+    -webkit-text-stroke: 3px #FACC15;
+    color: transparent;
+    font-size: clamp(6rem, 20vw, 12rem);
+    line-height: 0.8;
+    font-weight: 900;
+    filter: drop-shadow(0 10px 20px rgba(250, 204, 21, 0.1));
+  }
+
+  /* Barevné přechody pro výraznost */
+  .bg-gradient-yellow {
+    background: linear-gradient(135deg, #FACC15 0%, #EAB308 100%);
+  }
+
+  .nav-shadow {
+    box-shadow: 0 10px 30px -10px rgba(250, 204, 21, 0.3);
+  }
+
+  /* Interaktivní řádky služeb */
+  .service-row {
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .service-row:hover {
+    background-color: #FACC15;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    transform: scale(1.01);
+    z-index: 10;
+    border-radius: 2rem;
+    border-color: transparent;
+  }
+  .service-row:hover .service-icon {
+    transform: scale(1.3) rotate(-10deg);
+  }
+  .service-row:hover .service-text {
+    color: #0A0A0A;
+  }
+  .service-row:hover .service-badge {
+    background-color: #0A0A0A;
+    color: #FACC15;
+  }
+
+  /* Dekorativní prvky na pozadí */
+  .blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.15) 0%, transparent 70%);
+    z-index: -1;
+    border-radius: 50%;
+  }
+</style>
+
+</head>
+
+<body class="bg-white text-brand-black font-sans selection:bg-brand-black selection:text-brand-yellow">
+
+<header class="bg-brand-yellow sticky top-0 z-[100] nav-shadow">
+    <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+        <div class="flex items-center gap-5">
+            <div class="bg-white p-2 rounded-2xl shadow-xl transform -rotate-3">
+                <img src="https://i.postimg.cc/C1wWpMQT/hodinovi-kluci.png" class="h-12 md:h-16 w-auto" alt="Logo">
+            </div>
+            <div class="flex flex-col text-left">
+                <span class="font-black text-2xl md:text-4xl tracking-tighter uppercase leading-none text-brand-black">Hodinoví kluci</span>
+                <span class="text-[10px] font-extrabold uppercase tracking-[0.4em] text-brand-black/50">Hodinový manžel Ostrava</span>
+            </div>
+        </div>
+
+        <nav class="hidden lg:flex gap-12 items-center font-black text-sm uppercase tracking-widest text-brand-black">
+            <a href="#sluzby" class="hover:scale-110 transition-transform">Služby</a>
+            <a href="#jak" class="hover:scale-110 transition-transform">Jak to probíhá</a>
+            <a href="#cenik" class="hover:scale-110 transition-transform">Ceník</a>
+            <a href="#kontakt" class="bg-brand-black text-white px-10 py-4 rounded-full hover:bg-white hover:text-brand-black transition-all shadow-2xl">Poptat pomoc</a>
+        </nav>
+
+        <button onclick="toggleMenu()" class="lg:hidden text-brand-black">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+    
+    <div id="mobile-menu" class="hidden lg:hidden bg-brand-yellow border-t border-brand-black/5 p-8">
+        <nav class="flex flex-col gap-8 font-black uppercase text-center text-2xl text-brand-black">
+            <a href="#sluzby" onclick="toggleMenu()">Služby</a>
+            <a href="#jak" onclick="toggleMenu()">Jak to probíhá</a>
+            <a href="#cenik" onclick="toggleMenu()">Ceník</a>
+            <a href="#kontakt" class="bg-brand-black text-white p-5 rounded-3xl">Poptat pomoc</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="relative pt-24 pb-24 lg:pt-40 lg:pb-40 overflow-hidden bg-white">
+        <div class="blob -top-20 -left-20 animate-pulse-slow"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center text-left">
+                <div class="reveal-on-scroll">
+                    <div class="inline-flex items-center gap-3 bg-brand-yellow/20 text-brand-black px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest mb-10">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-yellow"></span>
+                        </span>
+                        Studenti, co se nebojí práce
+                    </div>
+                    <h1 class="text-6xl md:text-9xl font-black leading-[0.85] tracking-tighter mb-12 uppercase">
+                        Údržba <br><span class="text-brand-yellow bg-brand-black px-4 inline-block transform -rotate-1">a pomoc.</span>
+                    </h1>
+                    <p class="text-xl md:text-3xl text-slate-500 max-w-xl mb-16 leading-tight font-bold">
+                        Jsme parta studentů z Ostravy. Sekáme zahrady, skládáme nábytek a vracíme vám váš volný čas.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <a href="#kontakt" class="bg-brand-yellow text-brand-black px-12 py-6 rounded-3xl text-xl font-black hover:bg-brand-black hover:text-brand-yellow transition-all text-center shadow-[0_20px_50px_rgba(250,204,21,0.4)]">
+                            Chci pomoc hned
+                        </a>
+                        <a href="#sluzby" class="bg-brand-gray px-12 py-6 rounded-3xl text-xl font-black hover:bg-slate-200 transition-all text-center">
+                            Naše služby
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex justify-center lg:justify-end animate-float">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-brand-yellow rounded-full blur-[100px] opacity-20"></div>
+                        <img src="https://i.postimg.cc/C1wWpMQT/hodinovi-kluci.png" class="w-auto h-72 md:h-[550px] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] relative z-10" alt="Hodinoví kluci">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sluzby" class="py-32 bg-brand-gray/30">
+        <div class="max-w-7xl mx-auto px-6 text-left">
+            <div class="mb-24">
+                <h2 class="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase">
+                    S čím vám <br><span class="text-brand-yellow">pomůžeme?</span>
+                </h2>
+                <div class="w-48 h-4 bg-brand-black mt-8"></div>
+            </div>
+
+            <div class="flex flex-col border-t-4 border-brand-black">
+                <div class="service-row py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-12 group reveal-on-scroll">
+                    <div class="flex items-center gap-10">
+                        <span class="service-icon text-7xl md:text-8xl transition-all duration-500">🌳</span>
+                        <div>
+                            <h3 class="service-text text-4xl md:text-6xl font-black uppercase tracking-tighter transition-colors">Zahradní práce</h3>
+                            <p class="service-text text-slate-500 group-hover:text-brand-black/60 mt-4 text-xl font-bold uppercase tracking-widest">Perfektní zahrada bez starostí</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4 lg:flex-col lg:items-end">
+                        <span class="service-badge bg-brand-black text-white px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Sekání trávy</span>
+                        <span class="service-badge bg-white text-brand-black px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Živé ploty</span>
+                        <span class="service-badge bg-white text-brand-black px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Hrabání listí</span>
+                    </div>
+                </div>
+
+                <div class="service-row py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-12 group reveal-on-scroll">
+                    <div class="flex items-center gap-10">
+                        <span class="service-icon text-7xl md:text-8xl transition-all duration-500">🪑</span>
+                        <div>
+                            <h3 class="service-text text-4xl md:text-6xl font-black uppercase tracking-tighter transition-colors">Montáž & Opravy</h3>
+                            <p class="service-text text-slate-500 group-hover:text-brand-black/60 mt-4 text-xl font-bold uppercase tracking-widest">Váš domov v nejlepší kondici</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4 lg:flex-col lg:items-end">
+                        <span class="service-badge bg-brand-black text-white px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Skládání nábytku</span>
+                        <span class="service-badge bg-white text-brand-black px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Vrtání & Věšení</span>
+                        <span class="service-badge bg-white text-brand-black px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Drobné opravy</span>
+                    </div>
+                </div>
+
+                <div class="service-row py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-12 group reveal-on-scroll">
+                    <div class="flex items-center gap-10">
+                        <span class="service-icon text-7xl md:text-8xl transition-all duration-500">📦</span>
+                        <div>
+                            <h3 class="service-text text-4xl md:text-6xl font-black uppercase tracking-tighter transition-colors">Pomocné práce</h3>
+                            <p class="service-text text-slate-500 group-hover:text-brand-black/60 mt-4 text-xl font-bold uppercase tracking-widest">Když jsou dvě ruce málo</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4 lg:flex-col lg:items-end">
+                        <span class="service-badge bg-brand-black text-white px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Stěhování</span>
+                        <span class="service-badge bg-white text-brand-black px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Vyklízení půd</span>
+                        <span class="service-badge bg-white text-brand-black px-6 py-3 rounded-2xl text-sm font-black uppercase tracking-widest transition-all">Mytí oken</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-brand-yellow text-brand-black relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-20 items-center text-left">
+                <div class="reveal-on-scroll">
+                    <span class="bg-brand-black text-brand-yellow px-4 py-1 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-6 inline-block">Garantujeme</span>
+                    <h2 class="text-[10rem] md:text-[14rem] font-black leading-none tracking-tighter mb-4 -ml-2">0,-</h2>
+                    <p class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-brand-black leading-none">DOPRAVA <br>OSTRAVA</p>
+                </div>
+                
+                <div class="reveal-on-scroll delay-100 flex flex-col gap-12">
+                    <div class="bg-brand-black text-white p-12 rounded-[4rem] shadow-2xl">
+                        <h3 class="text-3xl font-black uppercase tracking-tight mb-6 text-brand-yellow text-left">Férová doprava</h3>
+                        <p class="text-slate-300 text-xl font-bold leading-relaxed text-left mb-8">
+                            V rámci Ostravy za vámi přijedeme zcela zdarma. Mimo Ostravu účtujeme jen symbolických 5 Kč / km.
+                        </p>
+                        <div class="bg-brand-yellow text-brand-black p-6 rounded-3xl font-black text-center text-xl uppercase tracking-widest">
+                            Platíte jen za práci
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="jak" class="py-40 bg-brand-black text-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-left mb-32">
+                <h2 class="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none text-white">Náš <span class="text-brand-yellow italic">postup.</span></h2>
+            </div>
+            
+            <div class="space-y-48">
+                <div class="reveal-on-scroll flex flex-col md:flex-row gap-12 lg:gap-24 items-start md:items-center text-left">
+                    <div class="step-number">1</div>
+                    <div class="max-w-3xl">
+                        <h4 class="text-4xl md:text-6xl font-black mb-8 uppercase tracking-tighter text-brand-yellow text-left">Poptávka</h4>
+                        <p class="text-xl md:text-3xl text-slate-400 leading-tight font-bold text-left">Pošlete nám zadání přes formulář nebo zavolejte. Obratem se domluvíme na detailech.</p>
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll flex flex-col md:flex-row gap-12 lg:gap-24 items-start md:items-center text-left">
+                    <div class="step-number">2</div>
+                    <div class="max-w-3xl">
+                        <h4 class="text-4xl md:text-6xl font-black mb-8 uppercase tracking-tighter text-brand-yellow text-left">Dohoda</h4>
+                        <p class="text-xl md:text-3xl text-slate-400 leading-tight font-bold text-left">Stanovíme čas a odhadovanou cenu. Přijedeme připraveni se vším nářadím.</p>
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll flex flex-col md:flex-row gap-12 lg:gap-24 items-start md:items-center text-left">
+                    <div class="step-number">3</div>
+                    <div class="max-w-3xl">
+                        <h4 class="text-4xl md:text-6xl font-black mb-8 uppercase tracking-tighter text-brand-yellow text-left text-left">Realizace</h4>
+                        <p class="text-xl md:text-3xl text-slate-400 leading-tight font-bold text-left">Práci odvedeme čistě a poctivě. Platíte až po dokončení a vaší spokojenosti.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cenik" class="py-32 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 text-left">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
+                <div>
+                    <h2 class="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase text-brand-black">Férový <br>ceník.</h2>
+                </div>
+                <p class="text-slate-400 font-black text-xl uppercase tracking-widest bg-brand-gray px-6 py-2 rounded-xl italic">Žádné skryté poplatky</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="group p-12 bg-brand-gray rounded-[4rem] border-4 border-transparent hover:border-brand-yellow transition-all duration-500 shadow-sm hover:shadow-2xl text-left">
+                    <div class="flex justify-between items-center mb-10">
+                        <span class="text-6xl">🌿</span>
+                        <h4 class="text-xl font-black uppercase text-slate-400">Základní</h4>
+                    </div>
+                    <div class="mb-12">
+                        <span class="text-8xl font-black tracking-tighter">200</span>
+                        <span class="text-2xl font-black text-slate-400 uppercase tracking-widest"> Kč/h</span>
+                    </div>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Stěhování</li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Manuální pomoc</li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest opacity-30"><div class="w-3 h-3 bg-slate-300 rounded-full"></div> Práce s vaším nářadím</li>
+                    </ul>
+                </div>
+
+                <div class="p-12 bg-brand-black text-white rounded-[4rem] shadow-[0_30px_60px_-15px_rgba(250,204,21,0.3)] scale-105 relative text-left">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-brand-yellow text-brand-black px-10 py-2 rounded-full text-xs font-black uppercase tracking-widest">Nejčastější</div>
+                    <div class="flex justify-between items-center mb-10">
+                        <span class="text-6xl">🛠️</span>
+                        <h4 class="text-xl font-black uppercase text-brand-yellow">Profi</h4>
+                    </div>
+                    <div class="mb-12">
+                        <span class="text-8xl font-black tracking-tighter text-brand-yellow">250</span>
+                        <span class="text-2xl font-black opacity-40 uppercase tracking-widest"> Kč/h</span>
+                    </div>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-brand-yellow"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Zahrada</li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-brand-yellow"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Montáže nábytku</li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-brand-yellow"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Vlastní profi nářadí</li>
+                    </ul>
+                </div>
+
+                <div class="group p-12 bg-brand-gray rounded-[4rem] border-4 border-transparent hover:border-brand-yellow transition-all duration-500 shadow-sm hover:shadow-2xl text-left">
+                    <div class="flex justify-between items-center mb-10">
+                        <span class="text-6xl">🖌️</span>
+                        <h4 class="text-xl font-black uppercase text-slate-400">Malování</h4>
+                    </div>
+                    <div class="mb-12">
+                        <span class="text-3xl font-black text-slate-300 uppercase">od </span>
+                        <span class="text-8xl font-black tracking-tighter">30</span>
+                        <span class="text-2xl font-black text-slate-400 uppercase tracking-widest"> Kč/m²</span>
+                    </div>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Zakrytí nábytku</li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Penetrace</li>
+                        <li class="flex items-center gap-4 text-sm font-black uppercase tracking-widest"><div class="w-3 h-3 bg-brand-yellow rounded-full"></div> Úklid v ceně</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-32 max-w-5xl mx-auto bg-brand-yellow p-10 md:p-20 rounded-[4rem] text-brand-black reveal-on-scroll shadow-[0_50px_100px_-20px_rgba(250,204,21,0.5)]">
+                <h4 class="text-5xl font-black mb-12 uppercase tracking-tighter text-left">🧮 Výpočet ceny</h4>
+                <div class="grid md:grid-cols-2 gap-10 mb-10 text-left">
+                    <div class="space-y-4">
+                        <label class="font-black uppercase text-xs tracking-widest ml-4">Typ servisu</label>
+                        <select id="jobType" class="w-full rounded-3xl p-6 bg-white font-black text-xl outline-none shadow-xl border-none">
+                            <option value="200">Standardní (200 Kč/h)</option>
+                            <option value="250">Profi s výbavou (250 Kč/h)</option>
+                        </select>
+                    </div>
+                    <div class="space-y-4">
+                        <label class="font-black uppercase text-xs tracking-widest ml-4">Počet kluků</label>
+                        <select id="people" class="w-full rounded-3xl p-6 bg-white font-black text-xl outline-none shadow-xl border-none">
+                            <option value="1">1 Šikovný kluk</option>
+                            <option value="2">2 Šikovní kluci</option>
+                            <option value="3">3 Šikovní kluci</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-4 text-left mb-12">
+                    <label class="font-black uppercase text-xs tracking-widest ml-4">Předpokládaný čas (hodiny)</label>
+                    <input id="hours" type="number" min="1" value="1" class="w-full rounded-3xl p-6 bg-white font-black text-xl outline-none shadow-xl border-none">
+                </div>
+                <button id="calculateBtn" class="w-full bg-brand-black text-brand-yellow py-8 rounded-3xl font-black uppercase tracking-widest text-2xl hover:scale-[1.03] transition-all shadow-2xl">Vypočítat odhad</button>
+                <div id="resultContainer" class="hidden mt-12 bg-white p-10 rounded-[3rem] animate-bounce">
+                    <div id="result" class="text-5xl font-black text-brand-black text-center"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-40 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-left">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div class="reveal-on-scroll">
+                    <h2 class="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-12 uppercase text-brand-black">
+                        Pojďme <br><span class="text-brand-yellow bg-brand-black px-4 italic">makať.</span>
+                    </h2>
+                    
+                    <div class="space-y-12">
+                        <a href="tel:+420721241851" class="flex items-center gap-10 group text-left">
+                            <div class="w-24 h-24 bg-brand-yellow rounded-[2.5rem] flex items-center justify-center text-5xl shadow-2xl group-hover:scale-110 transition-transform">📞</div>
+                            <div class="flex flex-col">
+                                <span class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Telefon</span>
+                                <span class="text-4xl md:text-5xl font-black group-hover:text-brand-yellow transition-colors leading-none text-brand-black">721 241 851</span>
+                            </div>
+                        </a>
+                        <a href="mailto:hodinovikluci4@gmail.com" class="flex items-center gap-10 group text-left">
+                            <div class="w-24 h-24 bg-brand-black text-brand-yellow rounded-[2.5rem] flex items-center justify-center text-4xl shadow-2xl group-hover:scale-110 transition-transform">📧</div>
+                            <div class="flex flex-col">
+                                <span class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">E-mail</span>
+                                <span class="text-2xl md:text-4xl font-black group-hover:text-brand-yellow transition-colors leading-none text-brand-black">hodinovikluci4@gmail.com</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll delay-100 bg-brand-black p-12 md:p-20 rounded-[5rem] text-white shadow-2xl border border-white/5 relative">
+                    <form action="https://formspree.io/f/mwpgwqza" method="POST" class="space-y-10">
+                        <div class="space-y-4 text-left">
+                            <label class="font-black uppercase text-xs tracking-widest text-brand-yellow text-left">Kdo píše?</label>
+                            <input type="email" name="email" required placeholder="Váš E-mail" class="w-full border-b-4 border-white/20 py-6 outline-none focus:border-brand-yellow transition-colors font-black text-3xl placeholder:text-white/10 bg-transparent text-left">
+                        </div>
+                        <div class="space-y-4 text-left">
+                            <label class="font-black uppercase text-xs tracking-widest text-brand-yellow text-left">Telefon</label>
+                            <input type="tel" name="phone" placeholder="Telefon" class="w-full border-b-4 border-white/20 py-6 outline-none focus:border-brand-yellow transition-colors font-black text-3xl placeholder:text-white/10 bg-transparent text-left">
+                        </div>
+                        <div class="space-y-4 text-left">
+                            <label class="font-black uppercase text-xs tracking-widest text-brand-yellow text-left text-left">Co potřebujete?</label>
+                            <textarea name="message" required rows="2" placeholder="Zadání úkolu..." class="w-full border-b-4 border-white/20 py-6 outline-none focus:border-brand-yellow transition-colors font-black text-3xl placeholder:text-white/10 resize-none bg-transparent text-left"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-yellow text-brand-black py-8 rounded-3xl font-black uppercase tracking-widest text-2xl hover:bg-white transition-all shadow-xl">Odeslat zadání</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-brand-black text-white py-24 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-left">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-16">
+            <div class="flex flex-col gap-8 items-start text-left">
+                <div class="text-5xl font-black uppercase tracking-tighter text-left">Hodinoví<span class="text-brand-yellow">kluci</span></div>
+                <p class="text-slate-500 font-bold max-w-sm uppercase text-sm tracking-widest text-left">Hodinový manžel Ostrava & okolí</p>
+                <p class="text-slate-600 font-black uppercase text-xs tracking-widest text-left">© 2026 Všechna práva vyhrazena.</p>
+            </div>
+            <div class="flex font-black text-sm uppercase tracking-widest mx-auto md:mx-0 text-left">
+                <div class="flex flex-col gap-6 text-slate-400 text-left">
+                    <span class="text-white mb-2 tracking-[0.4em] text-xs font-black uppercase text-left">Navigace</span>
+                    <a href="#sluzby" class="hover:text-brand-yellow transition text-left">Služby</a>
+                    <a href="#jak" class="hover:text-brand-yellow transition text-left">Postup</a>
+                    <a href="#cenik" class="hover:text-brand-yellow transition text-left">Ceník</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Reveal animation
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    });
+
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    // Kalkulačka
+    document.getElementById("calculateBtn").addEventListener("click", () => {
+        const total = parseInt(document.getElementById("jobType").value) * parseInt(document.getElementById("hours").value) * parseInt(document.getElementById("people").value);
+        const container = document.getElementById("resultContainer");
+        const result = document.getElementById("result");
+        container.classList.remove("hidden");
+        result.textContent = `cca ${total.toLocaleString('cs-CZ')} Kč`;
+    });
+</script>
+
+</body>
+</html>

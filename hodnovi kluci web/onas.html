@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width,initial-scale=1" name="viewport"/>
+
+    <title>O nás | Hodinoví kluci Ostrava</title>
+    <meta name="description" content="Kdo jsou Hodinoví kluci? Jsme parta studentů z Ostravy, kteří věří v poctivou řemeslnou práci a férové jednání. Poznejte náš příběh."/>
+
+    <link rel="icon" type="image/png" href="hodinovi_kluci1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                brand: {
+                  yellow: '#FACC15', 
+                  black: '#0A0A0A',  
+                  gray: '#F4F4F5',   
+                }
+              },
+              fontFamily: {
+                sans: ['Plus Jakarta Sans', 'sans-serif'],
+              }
+            }
+          }
+        }
+    </script>
+
+    <style>
+      .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .bg-grid {
+        background-image: radial-gradient(#FACC15 1px, transparent 1px);
+        background-size: 20px 20px;
+        opacity: 0.2;
+      }
+
+      .outline-text {
+        -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+        color: transparent;
+      }
+    </style>
+</head>
+
+<body class="bg-white text-brand-black font-sans selection:bg-brand-yellow selection:text-brand-black text-left">
+
+<header class="bg-brand-yellow sticky top-0 z-[100] border-b border-brand-black/5 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-4">
+            <div class="bg-white p-2 rounded-xl shadow-sm">
+                <img src="https://i.postimg.cc/C1wWpMQT/hodinovi-kluci.png" class="h-12 md:h-16 w-auto" alt="Logo Hodinoví kluci Ostrava">
+            </div>
+            <div class="flex flex-col text-left">
+                <span class="font-black text-2xl md:text-3xl tracking-tighter uppercase leading-none">Hodinoví kluci</span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-black/60">Ostrava</span>
+            </div>
+        </a>
+
+        <nav class="hidden lg:flex gap-10 items-center font-extrabold text-sm uppercase tracking-widest text-brand-black">
+            <a href="index.html" class="hover:underline decoration-4 underline-offset-8 transition text-brand-black">Domů</a>
+            <a href="index.html#sluzby" class="hover:underline decoration-4 underline-offset-8 transition text-brand-black">Služby</a>
+            <a href="index.html#cenik" class="hover:underline decoration-4 underline-offset-8 transition text-brand-black">Ceník</a>
+            <a href="index.html#kontakt" class="bg-brand-black text-white px-8 py-3 rounded-full hover:scale-105 transition-all shadow-lg">Kontaktujte nás</a>
+        </nav>
+
+        <button onclick="toggleMenu()" class="lg:hidden text-brand-black" aria-label="Otevřít menu">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+    
+    <div id="mobile-menu" class="hidden lg:hidden bg-brand-yellow border-t border-brand-black/10 p-6">
+        <nav class="flex flex-col gap-6 font-black uppercase text-center text-xl text-brand-black">
+            <a href="index.html" onclick="toggleMenu()">Domů</a>
+            <a href="index.html#sluzby" onclick="toggleMenu()">Služby</a>
+            <a href="index.html#cenik" onclick="toggleMenu()">Ceník</a>
+            <a href="index.html#kontakt" class="bg-brand-black text-white p-4 rounded-2xl">Kontaktujte nás</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="bg-brand-black py-24 md:py-40 relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-left">
+            <span class="text-brand-yellow font-black uppercase tracking-[0.3em] text-sm mb-6 block">Kdo jsme</span>
+            <h1 class="text-6xl md:text-9xl font-black text-white leading-none tracking-tighter uppercase mb-8">
+                Nejsme jen <br>
+                <span class="text-brand-yellow italic">manželé.</span>
+            </h1>
+            <p class="text-2xl md:text-4xl font-bold text-white/40 uppercase tracking-tighter max-w-3xl leading-tight">
+                Jsme kluci z Ostravy, co se nebojí vzít za práci a ulehčit vám život.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-start">
+                <div class="reveal-on-scroll">
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-10">
+                        Náš příběh začal <br> na ulici.
+                    </h2>
+                    <div class="space-y-6 text-lg text-slate-600 font-medium leading-relaxed">
+                        <p>
+                            Jsme parta studentů z Ostravy, které nebavilo jen sedět v lavicích. Chtěli jsme dělat něco smysluplného, co je vidět. Začalo to pomocí sousedům se sekáním trávy a montáží pár skříní. 
+                        </p>
+                        <p>
+                            Dnes jsme <strong class="text-brand-black">Hodinoví kluci</strong>. Tým mladých lidí, kteří mají sílu, chuť k práci a moderní přístup k řemeslu. Nejsme sice staří mistři s padesátiletou praxí, ale o to víc se snažíme, jsme rychlejší a jednáme s vámi na rovinu.
+                        </p>
+                    </div>
+                </div>
+                <div class="reveal-on-scroll delay-200 relative">
+                    <div class="aspect-square bg-brand-gray rounded-[4rem] overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                        <img src="matyas.jpg" class="w-full h-full object-cover" alt="Náš tým při práci">
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 bg-brand-yellow p-8 rounded-3xl shadow-xl hidden md:block">
+                        <span class="block text-4xl font-black leading-none">100%</span>
+                        <span class="text-xs font-black uppercase tracking-widest">Nasazení</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-brand-black text-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-center text-5xl md:text-7xl font-black uppercase tracking-tighter mb-20">Na čem si zakládáme</h2>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="reveal-on-scroll p-10 bg-white/5 rounded-[3rem] border border-white/10 hover:border-brand-yellow transition-colors">
+                    <div class="text-5xl mb-6 text-brand-yellow">🤝</div>
+                    <h3 class="text-2xl font-black uppercase mb-4 tracking-tight">Férové partnerství</h3>
+                    <p class="text-slate-400 font-medium leading-relaxed">
+                        Žádné skryté poplatky. Od začátku přesně víte, kolik zaplatíte. Naše slovo a podání ruky pro nás stále něco znamená.
+                    </p>
+                </div>
+
+                <div class="reveal-on-scroll delay-100 p-10 bg-white/5 rounded-[3rem] border border-white/10 hover:border-brand-yellow transition-colors">
+                    <div class="text-5xl mb-6 text-brand-yellow">⚡</div>
+                    <h3 class="text-2xl font-black uppercase mb-4 tracking-tight">Mladistvá energie</h3>
+                    <p class="text-slate-400 font-medium leading-relaxed">
+                        Práce nám jde od ruky. Neřešíme zbytečné pauzy, chceme mít výsledek hotový co nejrychleji a v nejlepší kvalitě.
+                    </p>
+                </div>
+
+                <div class="reveal-on-scroll delay-200 p-10 bg-white/5 rounded-[3rem] border border-white/10 hover:border-brand-yellow transition-colors">
+                    <div class="text-5xl mb-6 text-brand-yellow">📍</div>
+                    <h3 class="text-2xl font-black uppercase mb-4 tracking-tight">Lokální patrioti</h3>
+                    <p class="text-slate-400 font-medium leading-relaxed">
+                        Ostrava je náš domov. Známe každou čtvrť a zakládáme si na tom, aby za námi zůstávala skvělá vizitka v našem okolí.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-brand-yellow">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <div class="reveal-on-scroll">
+                <span class="text-6xl md:text-9xl font-black opacity-20 block leading-none mb-4 uppercase">"Poctivě."</span>
+                <p class="text-3xl md:text-5xl font-black text-brand-black leading-tight tracking-tighter uppercase">
+                    „Chceme ukázat, že i dnešní studenti umí vzít za práci a postavit se k řemeslu čelem.“
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-4">
+                    <div class="w-12 h-1px bg-brand-black"></div>
+                    <span class="font-black uppercase tracking-widest text-sm">Tým Hodinových kluků</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="reveal-on-scroll">
+                <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-12">
+                    Jdete do toho <br> <span class="text-brand-yellow bg-brand-black px-4 italic">s námi?</span>
+                </h2>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="index.html#kontakt" class="bg-brand-black text-white px-12 py-6 rounded-full text-xl font-black hover:scale-105 transition-all shadow-2xl uppercase tracking-widest">
+                        Chci vaši pomoc
+                    </a>
+                    <a href="index.html#sluzby" class="bg-brand-gray text-brand-black px-12 py-6 rounded-full text-xl font-black hover:bg-gray-200 transition-all uppercase tracking-widest">
+                        Zpět na služby
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-brand-black text-white py-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-left">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-16">
+            <div class="flex flex-col gap-6">
+                <div class="text-4xl font-black uppercase tracking-tighter text-white">Hodinoví<span class="text-brand-yellow">kluci</span></div>
+                <p class="text-slate-500 font-bold max-w-xs uppercase text-xs tracking-widest">Hodinový manžel Ostrava a široké okolí</p>
+                <p class="text-slate-600 font-bold uppercase text-[10px] tracking-[0.3em]">© 2026 Všechna práva vyhrazena.</p>
+            </div>
+            <nav class="flex font-black text-sm uppercase tracking-widest">
+                <div class="flex flex-col gap-4 text-slate-400">
+                    <span class="text-white mb-2 tracking-[0.3em]">Navigace</span>
+                    <a href="index.html" class="hover:text-brand-yellow transition">Domů</a>
+                    <a href="index.html#sluzby" class="hover:text-brand-yellow transition">Služby</a>
+                    <a href="index.html#cenik" class="hover:text-brand-yellow transition">Ceník</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    });
+
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+</script>
+
+</body>
+</html>
