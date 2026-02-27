@@ -114,6 +114,7 @@
 
         <nav class="hidden lg:flex gap-10 items-center font-extrabold text-sm uppercase tracking-widest text-brand-black">
             <a href="#sluzby" class="hover:underline decoration-4 underline-offset-8 transition">Služby</a>
+            <a href="#o-nas" class="hover:underline decoration-4 underline-offset-8 transition">O nás</a>
             <a href="galerie.html" class="hover:underline decoration-4 underline-offset-8 transition">Galerie</a>
             <a href="#cenik" class="hover:underline decoration-4 underline-offset-8 transition">Ceník</a>
             <a href="#kontakt" class="bg-brand-black text-white px-8 py-3 rounded-full hover:scale-105 transition-all shadow-lg">Kontaktujte nás</a>
@@ -127,6 +128,7 @@
     <div id="mobile-menu" class="hidden lg:hidden bg-brand-yellow border-t border-brand-black/10 p-6 absolute w-full shadow-2xl">
         <nav class="flex flex-col gap-6 font-black uppercase text-center text-xl text-brand-black">
             <a href="#sluzby" onclick="toggleMenu()">Služby</a>
+            <a href="#o-nas" onclick="toggleMenu()">O nás</a>
             <a href="galerie.html" onclick="toggleMenu()">Galerie</a>
             <a href="#cenik" onclick="toggleMenu()">Ceník</a>
             <a href="#kontakt" onclick="toggleMenu()" class="bg-brand-black text-white p-4 rounded-2xl">Kontaktujte nás</a>
@@ -140,7 +142,8 @@
             <img src="matyas.jpg" class="w-full h-full object-cover" alt="Hodinový manžel Ostrava - poctivá práce">
             <div class="absolute inset-0 bg-black/60"></div>
         </div>
-
+        
+       
         <div class="max-w-5xl mx-auto relative z-10 w-full py-12">
             <div class="reveal-on-scroll">
                 <span class="inline-block bg-brand-yellow text-brand-black px-4 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 shadow-sm">Parta spolehlivých studentů v Ostravě</span>
@@ -334,7 +337,49 @@
         </div>
     </section>
 
-    <section id="kontakt" class="py-20 md:py-32 bg-white">
+    <section id="o-nas" class="py-20 md:py-32 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
+                <div class="reveal-on-scroll">
+                    <header class="mb-8">
+                        <span class="text-brand-yellow font-black uppercase tracking-[0.3em] text-sm">Kdo jsme?</span>
+                        <h2 class="text-4xl md:text-7xl font-black tracking-tighter leading-none mt-4 uppercase text-brand-black">
+                            Hodinoví<br><span class="text-brand-yellow italic">kluci.</span>
+                        </h2>
+                    </header>
+                    
+                    <div class="space-y-6 text-lg md:text-xl text-slate-600 font-medium leading-relaxed mb-10">
+                        <p>
+                            Jsme studentská firma z Ostravy a okolí. Rozhodli jsme se nabídnout naši energii a šikovné ruce tam, kde je zrovna potřeba. Práce nás baví a nebojíme se umazat.
+                        </p>
+                        <p>
+                            Zakládáme si na spolehlivosti, slušném jednání a férových cenách. Pomůžeme vám se vším, na co sami nestačíte, nebo na co zkrátka nemáte čas.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-8 md:gap-12 pt-8 mt-8 border-t border-gray-100">
+                        <img src="hodinovi_kluci-removebg-preview.png" alt="Logo Hodinoví kluci" class="h-16 md:h-20 w-auto object-contain">
+                        <img src="ja-czech-short.webp" alt="JA Czech Logo" class="h-10 md:h-12 w-auto object-contain">
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-brand-gray p-8 md:p-10 rounded-[2.5rem] shadow-xl border-2 border-transparent hover:border-brand-yellow transition-all flex flex-col justify-center">
+                        <div class="text-5xl md:text-6xl font-black text-brand-yellow mb-4">100%</div>
+                        <h3 class="text-lg font-black uppercase mb-2 text-brand-black">Spolehlivost</h3>
+                        <p class="text-slate-500 text-sm font-medium">Zakládáme si na precizně odvedené práci a dochvilnosti.</p>
+                    </div>
+                    <div class="bg-brand-black p-8 md:p-10 rounded-[2.5rem] shadow-2xl border-2 border-transparent hover:border-brand-yellow transition-all flex flex-col justify-center sm:translate-y-12">
+                        <div class="text-5xl md:text-6xl font-black text-brand-yellow mb-4">24/7</div>
+                        <h3 class="text-lg font-black uppercase mb-2 text-white">Flexibilita</h3>
+                        <p class="text-slate-400 text-sm font-medium">Přizpůsobíme se vašim časovým možnostem a potřebám.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-20 md:py-32 bg-brand-gray">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
                 <div class="reveal-on-scroll">
@@ -388,12 +433,16 @@
             <div class="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
                 <div class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white">Hodinoví<span class="text-brand-yellow">kluci</span></div>
                 <p class="text-slate-500 font-bold max-w-xs uppercase text-[10px] tracking-widest">Hodinový manžel Ostrava a široké okolí</p>
-                <p class="text-slate-600 font-bold uppercase text-[9px] tracking-[0.3em]">© 2026 Všechna práva vyhrazena.</p>
+                
+                
+                
+                <p class="text-slate-600 font-bold uppercase text-[9px] tracking-[0.3em] mt-2">© 2026 Všechna práva vyhrazena.</p>
             </div>
             <nav class="flex font-black text-xs md:text-sm uppercase tracking-widest">
                 <div class="flex flex-col gap-4 text-slate-400 text-center md:text-left">
                     <span class="text-white mb-2 tracking-[0.3em] text-[10px]">Navigace</span>
                     <a href="#sluzby" class="hover:text-brand-yellow transition">Služby</a>
+                    <a href="#o-nas" class="hover:text-brand-yellow transition">O nás</a>
                     <a href="#jak" class="hover:text-brand-yellow transition">Jak to probíhá</a>
                     <a href="#cenik" class="hover:text-brand-yellow transition">Ceník prací</a>
                 </div>
