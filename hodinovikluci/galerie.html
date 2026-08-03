@@ -3,9 +3,16 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width,initial-scale=1" name="viewport"/>
-    <title>Naše práce | Hodinoví kluci</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <title>Galerie| Hodinoví kluci Ostrava</title>
+    <meta name="description" content="Ukázky naší reálné práce v Ostravě a okolí. Montáže nábytku, sekání zahrad, malování, výkopové práce a úpravy pozemků."/>
+    <link rel="canonical" href="https://www.hodinovikluci.cz/galerie.html"/>
+
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/C1wWpMQT/hodinovi-kluci.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -15,305 +22,403 @@
                 brand: {
                   yellow: '#FACC15', 
                   black: '#0A0A0A',  
-                  gray: '#F4F4F5',   
+                  gray: '#F8F9FA',   
                 }
               },
-              fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+              fontFamily: {
+                sans: ['Plus Jakarta Sans', 'sans-serif'],
+              }
             }
           }
         }
     </script>
 
     <style>
-      /* ZMĚNA POZADÍ: Přidán jemný gradient (spotlight efekt) */
-      body {
-        background-color: #050505;
-        background-image: radial-gradient(circle at 50% 0%, #222222 0%, #050505 75%);
-        background-attachment: fixed; /* Pozadí se při scrollování nehýbe */
-        min-height: 100vh;
+      .gallery-item {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
-
-      .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
-      .reveal.is-visible { opacity: 1; transform: translateY(0); }
-      
-      .gallery-card {
-        position: relative;
-        /* Úprava pro mobil: menší zaoblení, na PC původní */
-        border-radius: 2rem; 
-        overflow: hidden;
-        aspect-ratio: 1/1;
-      }
-      @media (min-width: 768px) {
-        .gallery-card { border-radius: 4rem; }
-      }
-      
-      /* Styly pro slider obrázků */
-      .slider-container {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      .slider-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      .gallery-item.hidden-item {
         opacity: 0;
-        transition: opacity 0.5s ease-in-out, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-        z-index: 0;
-      }
-
-      /* První obrázek je vidět defaultně */
-      .slider-image.active {
-        opacity: 1;
-        z-index: 1;
-      }
-      
-      /* Zoom efekt pouze na fotku při najetí */
-      .gallery-card:hover .slider-image { transform: scale(1.05); }
-      
-      .card-content {
+        transform: scale(0.9);
+        pointer-events: none;
         position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, #0A0A0A 0%, transparent 70%);
-        display: flex;
-        flex-direction: column;
-        justify-content: end;
-        /* Úprava pro mobil: menší padding */
-        padding: 1.5rem;
-        /* Text je vidět hned */
-        opacity: 1; 
-        z-index: 10; 
-        pointer-events: none; /* Aby šlo klikat na šipky pod textem */
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
       }
-      @media (min-width: 768px) {
-        .card-content { padding: 3rem; }
-      }
-      
-      .category-tag {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        background: #FACC15;
-        color: #0A0A0A;
-        padding: 0.5rem 1rem;
-        border-radius: 2rem;
-        font-weight: 800;
-        font-size: 0.65rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        transform: translateY(0);
-        opacity: 1;
-        z-index: 20;
-      }
-      @media (min-width: 768px) {
-        .category-tag { top: 2rem; right: 2rem; font-size: 0.75rem; padding: 0.5rem 1.2rem; }
-      }
-      
-      /* Šipky pro ovládání */
-      .slider-controls {
-        position: absolute;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        display: flex;
-        gap: 0.5rem;
-        z-index: 30;
-        opacity: 1;
-        transform: translateY(0);
-      }
-      @media (min-width: 768px) {
-        .slider-controls { bottom: 2rem; right: 2rem; }
-      }
-
-      .slider-btn {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255,255,255,0.3);
-        color: white;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s;
-        pointer-events: auto; /* Aby šly zmáčknout */
-      }
-      @media (min-width: 768px) {
-        .slider-btn { width: 40px; height: 40px; }
-      }
-
-      .slider-btn:hover {
-        background: #FACC15;
-        color: #0A0A0A;
-        border-color: #FACC15;
-      }
-      
-      /* Custom font size adjustments for headers inside cards */
-      .card-title {
-        font-size: 1.75rem; /* Menší na mobilu */
-        line-height: 1.1;
-      }
-      @media (min-width: 768px) {
-        .card-title { font-size: 2.25rem; } /* Původní 4xl cca */
-      }
-      @media (min-width: 1024px) {
-        .card-title { font-size: 2.5rem; }
-      }
-
     </style>
 </head>
 
-<body class="text-white font-sans selection:bg-brand-yellow selection:text-brand-black">
+<body class="bg-white text-brand-black font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-hidden">
 
-    <nav class="p-6 md:p-8 flex justify-between items-center fixed w-full top-0 left-0 z-50 bg-gradient-to-b from-[#050505]/90 to-transparent backdrop-blur-sm">
-        <div class="flex flex-col">
-            <span class="font-black text-xl md:text-2xl uppercase tracking-tighter leading-none">Hodinoví<span class="text-brand-yellow">kluci</span></span>
-            <span class="text-[8px] md:text-[9px] font-bold uppercase tracking-[0.3em] text-white/40">Portfolio prací</span>
+<header class="bg-brand-yellow sticky top-0 z-[100] border-b border-brand-black/5 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 md:h-24 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="flex flex-col text-left">
+                <span class="font-black text-xl md:text-3xl tracking-tighter uppercase leading-none">Hodinoví kluci</span>
+                <span class="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-brand-black/60">Hodinový manžel Ostrava</span>
+            </div>
         </div>
-        <a href="index.html" class="bg-white/10 hover:bg-brand-yellow hover:text-brand-black transition-all px-4 py-2 md:px-6 md:py-3 rounded-full font-black uppercase text-[10px] md:text-xs tracking-widest">
-            Zpět na web
-        </a>
-    </nav>
 
-    <header class="max-w-7xl mx-auto px-6 pt-32 pb-12 md:pt-40 md:pb-20 relative z-10">
-        <div class="reveal">
-            <span class="text-brand-yellow font-black uppercase tracking-[0.4em] text-xs md:text-sm block mb-4">Naše práce</span>
-            <h1 class="text-5xl sm:text-7xl md:text-[10rem] font-black leading-[0.9] md:leading-[0.85] tracking-tighter uppercase relative">
-                Naše <br> <span class="italic text-brand-yellow">Galerie.</span>
-            </h1>
-            <p class="text-lg md:text-2xl text-white/50 max-w-2xl mt-8 md:mt-12 font-medium">
-                Každý projekt bereme jako výzvu. Prohlídněte si naši práci.
-            </p>
-        </div>
-    </header>
+        <nav class="hidden lg:flex gap-10 items-center font-extrabold text-sm uppercase tracking-widest text-brand-black">
+            <a href="index.html#sluzby" class="hover:underline decoration-4 underline-offset-8 transition">Služby</a>
+            <a href="index.html#o-nas" class="hover:underline decoration-4 underline-offset-8 transition">O nás</a>
+           
+            <a href="index.html#cenik" class="hover:underline decoration-4 underline-offset-8 transition">Ceník</a>
+            <a href="index.html#kontakt" class="bg-brand-black text-white px-8 py-3 rounded-full hover:scale-105 transition-all shadow-lg">Kontaktujte nás</a>
+        </nav>
 
-    <section class="max-w-7xl mx-auto px-6 pb-20 md:pb-40">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            
-            <div class="gallery-card reveal group">
+        <button onclick="toggleMenu()" class="lg:hidden text-brand-black p-2" aria-label="Otevřít menu">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+    
+    <div id="mobile-menu" class="hidden lg:hidden bg-brand-yellow border-t border-brand-black/10 p-6 absolute w-full shadow-2xl">
+        <nav class="flex flex-col gap-6 font-black uppercase text-center text-xl text-brand-black">
+            <a href="index.html#sluzby" onclick="toggleMenu()">Služby</a>
+            <a href="index.html#o-nas" onclick="toggleMenu()">O nás</a>
+
+            <a href="index.html#cenik" onclick="toggleMenu()">Ceník</a>
+            <a href="index.html#kontakt" onclick="toggleMenu()" class="bg-brand-black text-white p-4 rounded-2xl">Kontaktujte nás</a>
+        </nav>
+    </div>
+</header>
+
+<main class="mb-auto">
+
+  
+
+              
+          
+
+    <!-- Galerie fotek -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="gallery-grid">
+                
+                <!-- 1. Sundávání fasády -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="tereny" onclick="openLightbox('fasada.jpg', 'Sundávání a odstraňování staré fasády', 'Ostrava - Vítkovice')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="fasada.jpg" alt="Sundávání fasády" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Sund%C3%A1v%C3%A1n%C3%AD+fas%C3%A1dy'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Ostrava - Stará Bělá</span>
+                            <span class="text-amber-600 font-bold">Stavba </span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Sundávání staré fasády</h3>
+                    </div>
+                </div>
+
+                <!-- 2. Rozhrnutí drceného kamene -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="tereny" onclick="openLightbox('kamen.jpg', 'Rozhrnutí a srovnání drceného kamene na pozemku', 'Klimkovice')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="sterk.jpg" alt="Rozhrnutí drceného kamene" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Rozhrnut%C3%AD+drcen%C3%A9ho+kamene'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Ostrava - Stará Bělá</span>
+                            <span class="text-amber-600 font-bold">Stavba</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Rozhrnutí drceného kamene</h3>
+                    </div>
+                </div>
+
+                <!-- 3. Renovace plotu - Fotka 1 -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="zahrada" onclick="openLightbox('plot-1.jpg', 'Renovace plotu – příprava, obroušení a ošetření', 'Ostrava - Poruba')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="plot3.jpg" alt="Renovace plotu - 1. fotka" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Renovace+plotu+(Foto+1)'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Stará Ves nad Ondřejnicí </span>
+                            <span class="text-blue-600 font-bold">Malování</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Broušení a malování</h3>
+                    </div>
+                </div>
+
                
-                <div class="slider-container" id="slider-1">
-                    <img src="IMG_5526.webp" class="slider-image active" alt="Sekání trávy 1" loading="lazy">
-                    <img src="garnyz.jpeg" class="slider-image" alt="Sekání trávy 2" loading="lazy" onerror="this.src='https://placehold.co/800x800/1a1a1a/FFF?text=Foto+2'">
-                    <img src="unnamed (2).jpg" class="slider-image" alt="Sekání trávy 3" loading="lazy" onerror="this.src='https://placehold.co/800x800/1a1a1a/FFF?text=Foto+3'">
+
+                <!-- 5. Sekání zahrady -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="zahrada" onclick="openLightbox('IMG_2610.webp', 'Kompletní sekání přerostlé zahrady a úklid', 'Vratimov')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="IMG_2467.webp" alt="Sekání zahrady" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Sek%C3%A1n%C3%AD+zahrady'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Ostrava - Poruba</span>
+                            <span class="text-emerald-600 font-bold">Sekání zahrad a údržba</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Údržba zahrady</h3>
+                    </div>
+                </div>
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="zahrada" onclick="openLightbox('IMG_2610.webp', 'Kompletní sekání přerostlé zahrady a úklid', 'Vratimov')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="zahrada.jpg" alt="Sekání zahrady" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Sek%C3%A1n%C3%AD+zahrady'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Klimkovice</span>
+                            <span class="text-emerald-600 font-bold">Sekání zahrad a údržba</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Posekání zahrady</h3>
+                    </div>
                 </div>
 
-                <div class="card-content">
-                    <h3 class="card-title font-black uppercase tracking-tighter mb-2 text-brand-yellow">Montáže a jiná pomoc</h3>
-                    <p class="text-white/70 font-bold uppercase text-[10px] md:text-xs tracking-widest leading-relaxed">Montáže, stěhování, vynášení materiálu...</p>
+                <!-- 6. Malování -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="remeslo" onclick="openLightbox('IMG_5542.webp', 'Výmalba pokoje včetně opravení prasklin a úklidu', 'Ostrava - Zábřeh')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="IMG_5542.webp" alt="Malování interiéru" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Malov%C3%A1n%C3%AD'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Ostrava - Zábřeh</span>
+                            <span class="text-blue-600 font-bold">Malování</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Výmalba bytů</h3>
+                    </div>
                 </div>
 
-                <div class="slider-controls">
-                    <button class="slider-btn prev-btn" onclick="changeSlide(this, -1)">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button class="slider-btn next-btn" onclick="changeSlide(this, 1)">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
+                <!-- 7. Montáž nábytku -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="remeslo" onclick="openLightbox('IMG_5526.webp', 'Montáž nábytku, sestavení skříní a ukotvení do zdi', 'Ostrava - Jih')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="IMG_5526.webp" alt="Montáž nábytku" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=Mont%C3%A1%C5%BE+n%C3%A1bytku'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Ostrava - Jih</span>
+                            <span class="text-amber-600 font-bold">Stavba</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Vynášení</h3>
+                    </div>
                 </div>
+
+                <!-- 8. Výkopové práce - Fotka 1 -->
+                <div class="gallery-item group cursor-pointer bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300" data-category="tereny" onclick="openLightbox('vykopy-1.jpg', 'Ruční i strojní výkopové práce – zahájení výkopu', 'Šenov')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img src="vykop2.jpg" alt="Výkopové práce - 1. fotka" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/f4f4f5/0A0A0A?text=V%C3%BDkopov%C3%A9+pr%C3%A1ce+(Foto+1)'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+               
+                        </div>
+                        <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                           
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+                            <span>📍 Stará Ves nad Ondřejnicí</span>
+                            <span class="text-amber-600 font-bold">Stavba</span>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-black uppercase tracking-tight">Výkopové práce</h3>
+                    </div>
+                </div>
+
+              
+                </div>
+
             </div>
-
-            <div class="gallery-card reveal group" style="transition-delay: 150ms;">
-                
-                <div class="slider-container" id="slider-2">
-                    <img src="IMG_2610.webp" class="slider-image active" alt="Montáž 1" loading="lazy">
-                    <img src="IMG_2447.webp" class="slider-image" alt="Montáž 2" loading="lazy" onerror="this.src='https://placehold.co/800x800/222/FFF?text=Detail+Montaze'">
-                    <img src="IMG_2467.webp" class="slider-image active" alt="Montáž 1" loading="lazy">
-                    <img src="IMG_2454.webp" class="slider-image active" alt="Montáž 1" loading="lazy">
-                </div>
-
-                <div class="card-content">
-                    <h3 class="card-title font-black uppercase tracking-tighter mb-2 text-brand-yellow">Údržba zahrad</h3>
-                    <p class="text-white/70 font-bold uppercase text-[10px] md:text-xs tracking-widest leading-relaxed">Sekání, úprava živého plotu...</p>
-                </div>
-
-                <div class="slider-controls">
-                    <button class="slider-btn prev-btn" onclick="changeSlide(this, -1)">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button class="slider-btn next-btn" onclick="changeSlide(this, 1)">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <div class="gallery-card reveal group">
-                
-                <div class="slider-container" id="slider-3">
-                    <img src="IMG_5542.webp" class="slider-image active" alt="Malování 1" loading="lazy">
-                    <img src="IMG_5562.webp" class="slider-image active" alt="Malování 1" loading="lazy">
-                    <img src="1E66779D-1A8D-4F4C-9E1F-D0120FBF5D3F.webp" class="slider-image active" alt="Malování 1" loading="lazy">
-                    <img src="756AF2AE-DE96-47B8-8671-2656353903C9.webp" class="slider-image active" alt="Malování 1" loading="lazy">
-                    <img src="E4CB8323-3CC5-468B-81B1-8BBDB7007B7B.webp" class="slider-image" alt="Malování 2" loading="lazy" onerror="this.src='https://placehold.co/800x800/333/FFF?text=Po+malovani'">
-                </div>
-
-                <div class="card-content">
-                    <h3 class="card-title font-black uppercase tracking-tighter mb-2 text-brand-yellow">Výmalba bytů</h3>
-                    <p class="text-white/70 font-bold uppercase text-[10px] md:text-xs tracking-widest leading-relaxed">Zakrytí, penetrace, oškrábávání omítky...</p>
-                </div>
-
-                <div class="slider-controls">
-                    <button class="slider-btn prev-btn" onclick="changeSlide(this, -1)">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button class="slider-btn next-btn" onclick="changeSlide(this, 1)">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-brand-yellow rounded-[2rem] md:rounded-[4rem] p-8 md:p-20 flex flex-col justify-center items-start text-brand-black reveal group" style="transition-delay: 150ms;">
-                <h3 class="text-3xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-6 md:mb-8">
-                    Chcete vidět svůj projekt zde?
-                </h3>
-                <p class="text-lg md:text-xl font-bold mb-8 md:mb-10 opacity-80">Zavolejte nám a domluvíme se na termínu.</p>
-                <a href="index.html#kontakt" class="bg-brand-black text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase text-sm md:text-base tracking-widest hover:scale-105 transition-transform">
-                    Rezervovat termín
-                </a>
-            </div>
-
         </div>
     </section>
 
-    <footer class="p-10 md:p-20 border-t border-white/10 text-center">
-        <p class="text-white/20 font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[10px] md:text-xs">© 2026 Hodinoví kluci Ostrava</p>
-    </footer>
+    <section id="kontakt" class="py-20 md:py-32 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
+                <div class="reveal-on-scroll">
+                    <h2 class="text-4xl md:text-7xl font-black tracking-tighter leading-none mb-8 md:mb-10 uppercase text-brand-black text-left">
+                        Potřebujete pomoct? <br><span class="text-brand-yellow bg-brand-black px-2 italic">Pojďme to vyřešit!</span>
+                    </h2>
+                    
+                    <address class="space-y-6 md:space-y-10 not-italic">
+                        <a href="tel:+420721241851" class="flex items-center gap-6 md:gap-8 group">
+                            <div class="w-16 h-16 md:w-24 md:h-24 bg-brand-yellow rounded-2xl md:rounded-3xl flex items-center justify-center text-3xl md:text-5xl shadow-lg group-hover:scale-110 transition-transform">📞</div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Zavolejte nám</span>
+                                <span class="text-xl md:text-4xl font-black group-hover:text-brand-yellow transition-colors leading-none text-brand-black">721 241 851</span>
+                            </div>
+                        </a>
+                        <a href="mailto:hodinovikluci4@gmail.com" class="flex items-center gap-6 md:gap-8 group">
+                            <div class="w-16 h-16 md:w-24 md:h-24 bg-brand-black text-brand-yellow rounded-2xl md:rounded-3xl flex items-center justify-center text-2xl md:text-4xl shadow-lg group-hover:scale-110 transition-transform">📧</div>
+                            <div class="flex flex-col text-brand-black overflow-hidden">
+                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">E-mail</span>
+                                <span class="text-base md:text-3xl font-black group-hover:text-brand-yellow transition-colors leading-none text-brand-black break-all">hodinovikluci4@gmail.com</span>
+                            </div>
+                        </a>
+                    </address>
+                </div>
 
-    <script>
-        // Animace při scrollování (fade-up efekt)
-        document.addEventListener("DOMContentLoaded", () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                <div class="reveal-on-scroll delay-100 bg-brand-black p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] text-white shadow-2xl relative">
+                    <form action="https://formspree.io/f/mwpgwqza" method="POST" class="space-y-6 md:space-y-8">
+                        <div class="space-y-2">
+                            <label for="email" class="font-black uppercase text-[10px] tracking-widest text-brand-yellow">Váš E-mail</label>
+                            <input id="email" type="email" name="email" required placeholder="např. karel@email.cz" class="w-full border-b-2 md:border-b-4 border-white/20 py-3 md:py-4 outline-none focus:border-brand-yellow transition-colors font-black text-xl md:text-2xl placeholder:text-white/10 bg-transparent text-white">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="phone" class="font-black uppercase text-[10px] tracking-widest text-brand-yellow">Vaše Telefonní číslo</label>
+                            <input id="phone" type="tel" name="phone" placeholder="např. 777 666 555" class="w-full border-b-2 md:border-b-4 border-white/20 py-3 md:py-4 outline-none focus:border-brand-yellow transition-colors font-black text-xl md:text-2xl placeholder:text-white/10 bg-transparent text-white">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="message" class="font-black uppercase text-[10px] tracking-widest text-brand-yellow">Co potřebujete vyřešit?</label>
+                            <textarea id="message" name="message" required rows="3" placeholder="S čím vám můžeme pomoci?" class="w-full border-b-2 md:border-b-4 border-white/20 py-3 md:py-4 outline-none focus:border-brand-yellow transition-colors font-black text-xl md:text-2xl placeholder:text-white/10 resize-none bg-transparent text-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-yellow text-brand-black py-6 md:py-8 rounded-2xl md:rounded-3xl font-black uppercase tracking-widest text-lg md:text-xl hover:bg-white transition-all shadow-xl text-center">Odeslat poptávku</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-brand-black text-white py-12 md:py-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-12">
+            <div class="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
+                <div class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white">Hodinoví<span class="text-brand-yellow">kluci</span></div>
+                <p class="text-slate-500 font-bold max-w-xs uppercase text-[10px] tracking-widest">Hodinový manžel Ostrava a široké okolí</p>
+                <p class="text-slate-600 font-bold uppercase text-[9px] tracking-[0.3em] mt-2">© 2026 Všechna práva vyhrazena.</p>
+            </div>
+            <nav class="flex font-black text-xs md:text-sm uppercase tracking-widest">
+                <div class="flex flex-col gap-4 text-slate-400 text-center md:text-left">
+                    <span class="text-white mb-2 tracking-[0.3em] text-[10px]">Navigace</span>
+                    <a href="index.html#sluzby" class="hover:text-brand-yellow transition">Služby</a>
+                    <a href="index.html#o-nas" class="hover:text-brand-yellow transition">O nás</a>
+                    <a href="index.html#jak" class="hover:text-brand-yellow transition">Jak to probíhá</a>
+                    <a href="index.html#cenik" class="hover:text-brand-yellow transition">Ceník prací</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        calculate();
+    });
+
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    let currentRate = 200;
+
+    function setJobType(rate, btn) {
+        currentRate = rate;
+        document.querySelectorAll('.calc-btn').forEach(b => {
+            b.classList.remove('border-brand-yellow', 'text-brand-yellow', 'bg-white/5');
+            b.classList.add('text-white/60', 'border-white/10');
+        });
+        btn.classList.add('border-brand-yellow', 'text-brand-yellow', 'bg-white/5');
+        btn.classList.remove('text-white/60', 'border-white/10');
+        calculate();
+    }
+
+    function calculate() {
+        const people = document.getElementById("calc-people").value;
+        const hours = document.getElementById("calc-hours").value;
+        
+        document.getElementById("val-people").textContent = people;
+        document.getElementById("val-hours").textContent = hours + "h";
+        
+        const total = currentRate * people * hours;
+        document.getElementById("result").textContent = `${total.toLocaleString('cs-CZ')} Kč`;
+    }
+</script>
+
+</body>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    function filterCategory(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-brand-black', 'text-brand-yellow', 'active');
+            b.classList.add('bg-white', 'text-slate-700');
         });
 
-        // Funkce pro Slider
-        function changeSlide(btn, direction) {
-            const card = btn.closest('.gallery-card');
-            const images = card.querySelectorAll('.slider-image');
-            
-            let activeIndex = 0;
-            images.forEach((img, index) => {
-                if (img.classList.contains('active')) {
-                    activeIndex = index;
-                    img.classList.remove('active');
-                }
-            });
+        btn.classList.remove('bg-white', 'text-slate-700');
+        btn.classList.add('bg-brand-black', 'text-brand-yellow', 'active');
 
-            let newIndex = activeIndex + direction;
-            
-            if (newIndex >= images.length) newIndex = 0;
-            if (newIndex < 0) newIndex = images.length - 1;
+        const items = document.querySelectorAll('.gallery-item');
+        items.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.classList.remove('hidden-item');
+            } else {
+                item.classList.add('hidden-item');
+            }
+        });
+    }
 
-            images[newIndex].classList.add('active');
-        }
-    </script>
+    function openLightbox(imgSrc, title, location) {
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const titleEl = document.getElementById('lightbox-title');
+        const locEl = document.getElementById('lightbox-loc');
+
+        img.src = imgSrc;
+        titleEl.textContent = title;
+        locEl.textContent = '📍 ' + location;
+
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+        }, 10);
+    }
+
+    function closeLightbox() {
+        const modal = document.getElementById('lightbox-modal');
+        modal.classList.add('opacity-0');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
 
 </body>
 </html>
